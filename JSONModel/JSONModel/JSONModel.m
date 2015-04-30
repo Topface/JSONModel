@@ -188,7 +188,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
     }
     
     //import the data from a dictionary
-    if (![self __importDictionary:dict withKeyMapper:self.__keyMapper validation:YES error:err]) {
+    if (![self __importDictionary:dict withKeyMapper:self.__keyMapper validation:NO error:err]) {
         return nil;
     }
     
@@ -582,10 +582,10 @@ static JSONKeyMapper* globalKeyMapper = nil;
             NSString* propertyAttributes = @(attrs);
             NSArray* attributeItems = [propertyAttributes componentsSeparatedByString:@","];
             
-            //ignore read-only properties
-            if ([attributeItems containsObject:@"R"]) {
-                continue; //to next property
-            }
+//            //ignore read-only properties
+//            if ([attributeItems containsObject:@"R"]) {
+//                continue; //to next property
+//            }
             
             //check for 64b BOOLs
             if ([propertyAttributes hasPrefix:@"Tc,"]) {
