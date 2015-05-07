@@ -242,7 +242,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
         //overwrite the raw incoming list with the mapped key names
         incomingKeys = transformedIncomingKeys;
     }
-    
+#if 0
     //check for missing input keys
     if (![requiredProperties isSubsetOfSet:incomingKeys]) {
         
@@ -255,7 +255,7 @@ static JSONKeyMapper* globalKeyMapper = nil;
         if (err) *err = [JSONModelError errorInvalidDataWithMissingKeys:requiredProperties];
         return NO;
     }
-    
+#endif
     //not needed anymore
     incomingKeys= nil;
     requiredProperties= nil;
@@ -576,17 +576,18 @@ static JSONKeyMapper* globalKeyMapper = nil;
             p.name = @(propertyName);
             
             //JMLog(@"property: %@", p.name);
-            
+
             //get property attributes
             const char *attrs = property_getAttributes(property);
             NSString* propertyAttributes = @(attrs);
+#if 0
             NSArray* attributeItems = [propertyAttributes componentsSeparatedByString:@","];
             
-//            //ignore read-only properties
-//            if ([attributeItems containsObject:@"R"]) {
-//                continue; //to next property
-//            }
-            
+            //ignore read-only properties
+            if ([attributeItems containsObject:@"R"]) {
+                continue; //to next property
+            }
+#endif
             //check for 64b BOOLs
             if ([propertyAttributes hasPrefix:@"Tc,"]) {
                 //mask BOOLs as structs so they can have custom convertors
